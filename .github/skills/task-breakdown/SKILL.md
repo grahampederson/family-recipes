@@ -22,9 +22,53 @@ Break the work down into a formal hierarchy. Ensure each level clearly maps to i
 Rank these items based on complexity, risk, and immediate impact to the project's critical path.
 
 ## 4. Testing Strategy
-For every level of the hierarchy (Work Item → Task → Feature → Body of Work), specify:
-- **Verification Method**: How we prove this specific unit works (e.g., unit tests, integration tests, or manual UAT).
-- **Definition of Done**: The specific criteria that must be met to mark it complete.
+For every level of the hierarchy, define specific tests:
+
+### Work Item Level – Unit Tests
+- Test the smallest isolated pieces of logic
+- For data models: validate creation, serialization, edge cases
+- For utilities: test inputs/outputs with various parameters
+- **Example**: `test_ingredient_consolidation_sums_quantities_correctly()`
+
+### Task Level – Component & Integration Tests
+- Test UI components: form validation, state changes, error handling
+- Test API endpoints: valid inputs, error responses, edge cases
+- Test integrations between systems
+- **Example**: `test_add_family_member_form_validates_required_fields()`
+
+### Feature Level – Integration & E2E Tests
+- End-to-end flows spanning multiple tasks
+- Happy path: user completes full workflow successfully
+- Error paths: system handles edge cases gracefully
+- **Example**: `test_user_creates_meal_plan_and_generates_grocery_list()`
+
+### Body of Work Level – UAT & Performance
+- Real users test in realistic conditions
+- Load/performance testing if applicable
+- Critical bug tracking
+
+### For Each Work Item, Specify:
+- **Verification Method**: unit test, component test, integration test, E2E test, or manual UAT?
+- **Test Name**: specific test case (e.g., `test_detect_allergen_conflict_warns_user()`)
+- **Success Criteria**: what must pass for this to be "done"?
+
+**Example Test Breakdown:**
+- WI 1.1: Create family member → `test_family_member_validates_name()`, `test_family_member_handles_allergies()`, etc.
+- WI 2.2: Generate recipes → `test_ollama_batch_generation()`, `test_validate_json_output()`, etc.
+- WI 3.4: Detect conflicts → `test_conflict_detection_by_allergen()`, `test_conflict_warning_shows_ui()`, etc.
+
+### Specify Testing Tools
+- **Frontend**: Jest, React Testing Library, Playwright/Cypress
+- **Backend**: pytest, unittest, integration test framework
+- **Coverage Targets**: Core logic 95%+, API 90%+, UI 80%+, Overall 85%+
+
+### Test Execution Strategy
+- Unit tests: run on every commit
+- Integration tests: run on PR
+- E2E tests: run nightly (full regression)
+- Manual UAT: before release
+
+---
 
 ## 5. Observability & Behavior
 Define the "Success Signals" for each feature:
