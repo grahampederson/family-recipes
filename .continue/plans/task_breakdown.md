@@ -129,7 +129,7 @@ Testing is organized by pyramid: Unit Tests (base) → Component/Integration Tes
 - `test_family_member_creation_with_required_fields()` – name, allergies, preferences set correctly
 - `test_family_member_handles_empty_allergies_list()` – no allergies should be valid
 - `test_family_member_handles_multiple_allergies()` – 5+ allergies stored correctly
-- `test_family_member_handles_dietary_restrictions()` – vegan, vegetarian, gluten-free stored and retrieved
+- `test_family_member_handles_dietary_restrictions()` – vegan, vegetarian, gluten-free, and personal preferences (e.g., no onions) stored and retrieved
 - `test_family_member_validates_name_not_empty()` – reject creation without name
 - `test_family_member_serialization_to_json()` – converts to/from JSON for storage
 
@@ -276,6 +276,9 @@ Testing is organized by pyramid: Unit Tests (base) → Component/Integration Tes
 **Integration Tests:**
 - `test_search_filter_ui_calls_backend_correctly()` – frontend → backend call
 - `test_backend_returns_filtered_recipes_to_frontend()` – end-to-end search flow
+- `test_recipe_filter_respects_all_family_allergies()` – given member with peanut allergy, no recipes with peanuts returned
+- `test_recipe_filter_respects_all_family_preferences()` – given member dislikes onions, no recipes with onions returned
+- `test_recipe_filter_with_multiple_members_and_constraints()` – given 5 people with mixed allergies/preferences, only recipes safe for all returned
 
 **Definition of Done:** All tests pass, recipes generated and filtered, 85%+ coverage on generation logic
 
@@ -528,11 +531,34 @@ Testing is organized by pyramid: Unit Tests (base) → Component/Integration Tes
 - **UI Components**: 80%+
 - **Overall**: 85%+
 
-### Continuous Testing
-- Run unit tests on every commit
-- Run integration tests on PR merge to main
-- Run E2E tests nightly (full suite)
-- Run load tests weekly (post-MVP)
+### Continuous Testing & CI/CD Pipeline
+
+#### Automated Test Execution
+- **Pre-commit**: Unit tests run locally (developer machine) before push
+- **On Push**: Commit hooks trigger unit tests; block push if any fail
+- **On PR**: Full unit + integration test suite runs; PR blocked if coverage drops below targets
+- **Nightly**: Full E2E test suite + load tests + performance benchmarks
+- **Deployment Gates**: All tests must pass before staging/production deployment
+
+#### Coverage Targets & Monitoring
+- **Core Logic** (aggregation, conflict detection, filtering): 95%+
+- **API Endpoints**: 90%+
+- **UI Components**: 80%+
+- **Overall**: 85%+
+- Coverage reports generated on every test run; alerts if dropping below targets
+
+#### CI/CD Tools & Infrastructure
+- **Test Runner**: GitHub Actions (or equivalent: GitLab CI, CircleCI)
+- **Test Reporting**: JUnit XML, code coverage reports (Codecov, Coveralls)
+- **Flaky Test Detection**: Mark and track tests that fail intermittently
+- **Test Result Dashboard**: Public visibility into pass/fail rates, trends, and blockers
+
+#### Test Execution Frequency
+- Unit tests: on every commit
+- Integration tests: on PR merge to main
+- E2E tests: nightly (full suite)
+- Load tests: weekly (post-MVP)
+- Performance benchmarks: on every release candidate
 
 ---
 
