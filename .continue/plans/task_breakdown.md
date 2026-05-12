@@ -114,10 +114,10 @@ Build a web application that allows families to plan weekly meals (breakfast, lu
 Testing is organized by pyramid: Unit Tests (base) → Component/Integration Tests (middle) → E2E Tests (top). Each work item has specific test requirements that build upward.
 
 ### Testing Tools & Frameworks
-- **Frontend**: Jest, React Testing Library (or equivalent for your framework)
-- **Backend**: pytest, unittest (Python) or equivalent
+- **Frontend**: Vanilla JS testing or Playwright/Cypress for browser flows
+- **Backend**: RSpec + Rails request/model specs
 - **E2E**: Playwright or Cypress
-- **Database**: Use test database with migrations
+- **Database**: Use PostgreSQL with Rails migrations and test database
 - **Load Testing**: k6 or Apache JMeter (optional, post-MVP)
 
 ---
@@ -595,13 +595,13 @@ Testing is organized by pyramid: Unit Tests (base) → Component/Integration Tes
 ## 6. Dependencies & Constraints
 
 ### Technical Dependencies
-- **Frontend**: React/Vue/Svelte (your choice), responsive CSS framework
-- **Backend**: Node.js (Express/Fastify) OR Python (Flask/Django) OR other
-- **Database**: PostgreSQL, MySQL, or SQLite (for MVP)
+- **Frontend**: Vanilla HTML/CSS/JavaScript, responsive CSS
+- **Backend**: Ruby on Rails API server
+- **Database**: PostgreSQL
 - **Authentication**: Optional for MVP (can add later)
 - **PDF Generation**: pdfkit, puppeteer, or similar
-- **Ollama**: Local LLM for recipe generation (Mistral, Llama 2, or equivalent; ~7-13B parameters recommended)
-- **JSON Schema Validation**: Ensure Ollama output matches recipe structure
+- **Ollama**: Local LLM for recipe generation (llama3.1 or similar)
+- **JSON Schema Validation**: Validate Ollama output matches recipe structure
 
 ### External Dependencies
 - None required for MVP (no API calls to external services)

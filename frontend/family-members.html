@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Members - Family Recipe Planner</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Family Recipe Planner</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="family-members.html">Family Members</a></li>
+                    <li><a href="meal-planner.html">Meal Planner</a></li>
+                    <li><a href="recipes.html">Recipes</a></li>
+                    <li><a href="grocery-list.html">Grocery List</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <h2>Manage Family Members</h2>
+
+            <div id="message"></div>
+
+            <form id="familyMemberForm" onsubmit="addFamilyMember(event)">
+                <div class="form-group">
+                    <label for="memberName">Member Name *</label>
+                    <input type="text" id="memberName" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Allergies</label>
+                    <div class="checkbox-group" id="allergyList"></div>
+                    <input type="text" id="newAllergy" placeholder="Add new allergy...">
+                    <button type="button" onclick="addNewAllergy()">Add Allergy</button>
+                </div>
+
+                <div class="form-group">
+                    <label>Preferences</label>
+                    <div class="checkbox-group" id="preferenceList"></div>
+                    <input type="text" id="newPreference" placeholder="Add new preference (e.g., no onions)...">
+                    <button type="button" onclick="addNewPreference()">Add Preference</button>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add Family Member</button>
+            </form>
+
+            <h3 style="margin-top: 3rem;">Family Members</h3>
+            <table id="familyMembersTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Allergies</th>
+                        <th>Preferences</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="membersList">
+                </tbody>
+            </table>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Family Recipe Planner. Built with FastAPI + Ollama.</p>
+        </footer>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/family-members.js"></script>
+</body>
+</html>
