@@ -29,6 +29,13 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: family_recipes_backend
+    environment:
+      - SECRET_KEY_BASE=965ffd588f61437a2aa32d8ad605b7b0deb76a03f085b1641c0aa652da3efdf287ca14d4c70888ac100b8790085eb7ce01b366758451ae259ccdb00d9bb88148
+      - RAILS_ENV=production
+      - DATABASE_HOST=postgres  # Matches the service name at the top of your file
+      - DATABASE_USERNAME=family_recipes_user
+      - DATABASE_PASSWORD=password
+      - DATABASE_NAME=family_recipes
     env_file:
       - .env
     ports:
