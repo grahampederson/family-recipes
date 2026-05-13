@@ -95,14 +95,5 @@ Generate a Mermaid.js 'graph TD' (top-down) diagram that visualizes:
 ## 10. Observability Flow
 Include a simple Mermaid sequence diagram or flowchart showing how a user interaction triggers the "Success Signals" you defined in Section 5.
 
-## 11. CI/CD Pipeline & Automation
-Define a continuous integration system that automatically runs tests:
-- **Pre-commit / Commit Hooks**: Run unit tests locally before code is pushed
-- **PR Checks**: On pull request, run unit + integration tests; block merge if coverage drops
-- **Nightly Full Suite**: E2E tests, load tests, performance benchmarks
-- **Deployment Gates**: All tests must pass before staging/production deployment
-- **Coverage Reporting**: Track code coverage trends; alert if dipping below targets (95% core logic, 90% API, 80% UI)
-- **Test Results Dashboard**: Public visibility into test health, flaky tests, failure trends
-
-## 12. Artifact Storage
+## 11. Artifact Storage
 - Save the completed breakdown to `.continue/plans/task_breakdown.md`.

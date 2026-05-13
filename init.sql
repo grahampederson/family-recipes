@@ -1,0 +1,3 @@
+CREATE DATABASE backend_production_cache;
+CREATE DATABASE backend_production_queue;
+CREATE DATABASE backend_production_cable;

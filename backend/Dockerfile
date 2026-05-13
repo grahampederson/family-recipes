@@ -47,6 +47,8 @@ RUN bundle exec bootsnap precompile --gemfile
 # Copy application code
 COPY . .
 
+RUN chmod +x bin/docker-entrypoint
+
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 

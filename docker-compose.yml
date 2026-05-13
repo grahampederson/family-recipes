@@ -10,8 +10,9 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U family_recipes_user"]
+      test: ["CMD-SHELL", "pg_isready -U family_recipes_user -d family_recipes"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -32,17 +33,17 @@ services:
     environment:
       - SECRET_KEY_BASE=965ffd588f61437a2aa32d8ad605b7b0deb76a03f085b1641c0aa652da3efdf287ca14d4c70888ac100b8790085eb7ce01b366758451ae259ccdb00d9bb88148
       - RAILS_ENV=production
-      - DATABASE_HOST=postgres  # Matches the service name at the top of your file
-      - DATABASE_USERNAME=family_recipes_user
-      - DATABASE_PASSWORD=password
-      - DATABASE_NAME=family_recipes
+      - DATABASE_URL=postgresql://family_recipes_user:password@postgres:5432/family_recipes
+      - DATABASE_HOST=postgres
     env_file:
       - .env
     ports:
       - "8000:8000"
     depends_on:
-      - postgres
-      - ollama
+      postgres:
+        condition: service_healthy
+      ollama:
+        condition: service_started
     volumes:
       - ./backend:/app
       - ./backend/app:/app/app
